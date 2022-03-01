@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h3> Welcome {{ user.get_username }}</h3>
+    <hr/>
+
+    {% for ticket in tickets %}
+        <h6> {{ ticket.created }} </h6> <br/>
+        <h4> {{ ticket.text }} </h4> <br/>
+        <a class="btn btn-info" href="{% url 'ticket_details' ticket.id %}"> Details </a>
+        <hr/>
+    {% endfor %}
+
+    <a href="{% url 'ticket_create' %}" class="btn btn-primary">Add Ticket</a>
+
+{% endblock %}

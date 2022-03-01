@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h6> {{ ticket.created }} </h6> <br/>
+    <h4> {{ ticket.text }} </h4> <br/>
+    {% if file %}
+        <h6> Uploaded file: {{ file.filename }} </h6>
+        <a href="{% url 'ticket_file_delete' ticket.id %}" class="btn btn-danger">Delete File</a>
+    {% endif %}
+    <hr/>
+
+    <a href="{% url 'ticket_delete' ticket.id %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'ticket_update' ticket.id %}" class="btn btn-info">Edit</a>
+
+{% endblock %}

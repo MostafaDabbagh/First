@@ -1,0 +1,79 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <h2>All users tickets per day</h2>
+    <canvas id="ticketsPerDayChart" style="width:100%;max-width:800px"></canvas>
+    <br/>
+    <h2>Number of characters of each user's tickets</h2>
+    <canvas id="charsPerUserChart" style="width:100%;max-width:800px"></canvas>
+
+    <script>
+        var xValues1 = [
+            {% for label in tickets_labels %}
+                '{{ label }}',
+            {% endfor %}
+        ];
+
+        var yValues1 = [
+            {% for value in tickets_data %}
+                {{ value }},
+            {% endfor %}
+        ];
+
+        new Chart("ticketsPerDayChart", {
+            type: "line",
+            data: {
+                labels: xValues1,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: yValues1
+                }]
+            },
+            options: {
+                legend: {display: false},
+                scales: {
+                    yAxes: [{ticks: {min: 0, max: Math.max.apply(null, yValues1)}}],
+                }
+            }
+        });
+
+
+
+             var xValues2 = [
+            {% for label in chars_labels %}
+                '{{ label }}',
+            {% endfor %}
+        ];
+
+        var yValues2 = [
+            {% for value in chars_data %}
+                {{ value }},
+            {% endfor %}
+        ];
+
+        new Chart("charsPerUserChart", {
+            type: "line",
+            data: {
+                labels: xValues2,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: yValues2
+                }]
+            },
+            options: {
+                legend: {display: false},
+                scales: {
+                    yAxes: [{ticks: {min: 0, max: Math.max.apply(null, yValues2)}}],
+                }
+            }
+        });
+    </script>
+
+{% endblock %}
